@@ -1,0 +1,128 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"id": "https://schema.isp.nexus/point-of-contact",
+	"title": "Point of Contact",
+	"description": "A specific person, customer, or representative of an organization that can be contacted.",
+	"definitions": {
+		"emailAddress": {
+			"title": "Email Address",
+			"type": "string",
+			"format": "email",
+			"description": "An email address",
+			"example": "jessie.lorem@example.com"
+		},
+		"phoneNumber": {
+			"type": "string",
+			"title": "Phone Number",
+			"description": "The E.164 formatted phone number with country code.",
+			"example": "+15558675309",
+			"minLength": 10,
+			"maxLength": 15,
+			"pattern": "^\\+[1-9]\\d{1,14}$"
+		},
+		"verificationTimestamp": {
+			"title": "Verification Timestamp",
+			"type": "string",
+			"format": "date-time",
+			"description": "The date and time the contact method was verified.",
+			"example": "2020-01-01T00:00:00Z"
+		},
+		"emailContactMethod": {
+			"title": "Email Contact Method",
+			"description": "An contact method via email.",
+			"type": "object",
+			"properties": {
+				"kind": {
+					"const": "email"
+				},
+				"value": {
+					"$ref": "#/definitions/emailAddress"
+				},
+				"verifiedAt": {
+					"$ref": "#/definitions/verificationTimestamp"
+				}
+			}
+		},
+		"phoneContactMethod": {
+			"title": "Phone Contact Method",
+			"description": "An contact method via phone.",
+			"type": "object",
+			"properties": {
+				"kind": {
+					"const": "phone"
+				},
+				"value": {
+					"$ref": "#/definitions/phoneNumber"
+				},
+				"verifiedAt": {
+					"$ref": "#/definitions/verificationTimestamp"
+				}
+			}
+		},
+		"whatsappContactMethod": {
+			"title": "WhatsApp Contact Method",
+			"description": "An contact method via WhatsApp.",
+			"type": "object",
+			"properties": {
+				"kind": {
+					"const": "whatsapp"
+				},
+				"value": {
+					"$ref": "#/definitions/phoneNumber"
+				},
+				"verifiedAt": {
+					"$ref": "#/definitions/verificationTimestamp"
+				}
+			}
+		}
+	},
+	"type": "object",
+	"properties": {
+		"givenName": {
+			"title": "Given Name",
+			"type": "string",
+			"description": "The given name of the person, i.e. their first name.",
+			"examples": ["Jessie", "Kelly", "Leslie"]
+		},
+		"familyName": {
+			"title": "Family Name",
+			"type": "string",
+			"description": "The family name of the person, i.e. their last name.",
+			"examples": ["Jones", "Smith", "Johnson"]
+		},
+		"dateOfBirth": {
+			"title": "Date of Birth",
+			"type": "string",
+			"format": "date",
+			"description": "The date of birth of the person."
+		},
+		"organization": {
+			"title": "Organization",
+			"description": "An organization the person is associated with.",
+			"type": "string"
+		},
+		"dataSource": {
+			"title": "Data Source",
+			"type": "string",
+			"description": "Source of the person's data."
+		},
+		"contactMethods": {
+			"title": "Contact Methods",
+			"description": "The contact methods for the individual.",
+			"type": "array",
+			"items": {
+				"oneOf": [
+					{
+						"$ref": "#/definitions/emailContactMethod"
+					},
+					{
+						"$ref": "#/definitions/phoneContactMethod"
+					},
+					{
+						"$ref": "#/definitions/whatsappContactMethod"
+					}
+				]
+			}
+		}
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"outDir": "out"
+	},
+	"references": [
+		{
+			"path": "../core"
+		},
+		{
+			"path": "../node"
+		}
+	]
+}

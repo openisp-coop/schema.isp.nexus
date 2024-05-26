@@ -1,0 +1,204 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"id": "https://schema.isp.nexus/broadband-label",
+	"title": "Broadband Label",
+	"description": "Broadband Labels are designed to provide clear, easy-to-understand, and accurate information about the cost and performance of high-speed internet services.",
+	"definitions": {
+		"PlanPrefix": {
+			"type": "string",
+			"oneOf": [
+				{
+					"title": "Fixed Plan",
+					"description": "A fixed plan is a plan that provides high-speed internet service to a fixed location, such as a home or business. Fixed plans are also known as home broadband plans.",
+					"const": "F"
+				},
+				{
+					"title": "Mobile Plan",
+					"description": "A mobile plan is a plan that provides high-speed internet service to a mobile device, such as a smartphone or tablet. Mobile plans are also known as mobile broadband plans.",
+					"const": "M"
+				}
+			]
+		},
+		"bandwidthUnit": {
+			"type": "string",
+			"oneOf": [
+				{
+					"title": "Kilobits per second",
+					"const": "kbps"
+				},
+				{
+					"title": "Megabits per second",
+					"const": "Mbps"
+				},
+				{
+					"title": "Gigabits per second",
+					"const": "Gbps"
+				}
+			]
+		},
+		"mobileTechnology": {
+			"type": "string",
+			"oneOf": [
+				{
+					"title": "5G",
+					"description": "5G is the fifth generation of wireless technology. It is designed to increase speed, reduce latency, and improve the flexibility of wireless services.",
+					"const": "5G"
+				},
+				{
+					"title": "5G UC",
+					"description": "5G UC is a version of 5G that uses ultra-capacity spectrum to provide faster speeds and better coverage.",
+					"const": "5G UC"
+				},
+				{
+					"title": "4G LTE",
+					"description": "4G LTE is the fourth generation of wireless technology. It is designed to provide faster data speeds and better coverage than previous generations.",
+					"const": "4G LTE"
+				},
+				{
+					"title": "3G",
+					"description": "3G is the third generation of wireless technology. It is designed to provide faster data speeds and better coverage than previous generations.",
+					"const": "3G"
+				}
+			]
+		},
+		"typicalDownloadSpeed": {
+			"title": "Typical Download Speed",
+			"description": "The typical download speed of the service plan.",
+			"type": "object",
+			"properties": {
+				"value": {
+					"type": "number",
+					"description": "Value of download speeds measured in units of bandwidth.",
+					"minimum": 0,
+					"examples": [25, 50, 100, 200]
+				},
+				"unit": {
+					"$ref": "#/definitions/bandwidthUnit",
+					"description": "The unit of measurement for the typical download speed."
+				},
+				"technology": {
+					"$ref": "#/definitions/mobileTechnology",
+					"title": "Mobile Technology",
+					"description": "The mobile technology used to provide the service plan."
+				}
+			},
+			"required": ["value", "unit"]
+		},
+		"typicalLatency": {
+			"title": "Typical Latency",
+			"description": "The typical latency of the service plan.",
+			"type": "object",
+			"properties": {
+				"value": {
+					"type": "number",
+					"description": "Latency measured in milliseconds",
+					"minimum": 0,
+					"examples": [40, 50]
+				},
+				"technology": {
+					"$ref": "#/definitions/mobileTechnology",
+					"title": "Mobile Technology",
+					"description": "The mobile technology used to provide the service plan."
+				}
+			},
+			"required": ["value", "unit"]
+		}
+	},
+	"type": "object",
+	"properties": {
+		"frn": {
+			"$ref": "https://schema.isp.nexus/fcc-entity#/definitions/frn",
+			"title": "FCC Registration Number",
+			"description": "The FRN associated with the provider of the service plan."
+		},
+		"providerName": {
+			"type": "string",
+			"title": "Provider Name",
+			"description": "The name of the provider offering the service plan.",
+			"examples": ["Verizon", "Comcast", "AT&T", "Spectrum"]
+		},
+		"planPrefix": {
+			"$ref": "#/definitions/PlanPrefix",
+			"title": "Plan Prefix",
+			"description": "The prefix for the plan identifier."
+		},
+		"planID": {
+			"type": "string",
+			"title": "Plan Identifier",
+			"description": "The unique identifier for the service plan. Identifiers must be unique to each plan and cannot be reused after a plan is discontinued.",
+			"minLength": 15,
+			"pattern": "^[A-Za-z0-9]{15}$",
+			"examples": ["240410SIANATAEN", "C69183000000000"]
+		},
+		"planName": {
+			"type": "string",
+			"title": "Plan Name",
+			"description": "The name of the service plan.",
+			"examples": ["55+ Unlimited Plan", "Spectrum Internet Assist", "Unlimited Ultimate", "50GB BYOD"]
+		},
+		"monthlyPrice": {
+			"type": "number",
+			"title": "Monthly Price",
+			"description": "The monthly price of the service plan, in USD cents.",
+			"minimum": 0,
+			"examples": [5000, 6500, 7500, 10000]
+		},
+		"contractTerm": {
+			"type": "integer",
+			"title": "Contract Term",
+			"description": "The length of the contract term, in months.",
+			"minimum": 0,
+			"examples": [0, 12, 24, 36]
+		},
+		"introductoryPrice": {
+			"type": "number",
+			"title": "Introductory Price",
+			"description": "The introductory price of the service plan, in USD cents.",
+			"minimum": 0,
+			"examples": [5000, 6500, 7500, 10000]
+		},
+		"earlyTerminationFee": {
+			"type": "number",
+			"title": "Early Termination Fee",
+			"description": "The early termination fee for the service plan, in USD cents.",
+			"minimum": 0,
+			"examples": [0, 5000, 10000, 15000]
+		},
+		"activationFee": {
+			"type": "number",
+			"title": "Activation Fee",
+			"description": "A one-time fee charged to activate the service plan, in USD cents.",
+			"minimum": 0,
+			"examples": [0, 5000, 10000, 15000]
+		},
+		"networkManagementPolicyURL": {
+			"type": "string",
+			"format": "url",
+			"title": "Network Management Policy URL",
+			"description": "How the provider manages the data that moves across their network. The linked policy must include information about blocking, throttling, and paid prioritization."
+		},
+		"blockingPolicyURL": {
+			"type": "string",
+			"format": "url",
+			"title": "Blocking Policy URL",
+			"description": "The provider's policy on blocking lawful content, applications, services, or non-harmful devices."
+		},
+		"typicalDownloadSpeeds": {
+			"title": "Typical Download Speeds",
+			"description": "The typical download speeds of the service plan, per technology.",
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/typicalDownloadSpeed"
+			}
+		},
+		"typicalLatencies": {
+			"title": "Typical Latencies",
+			"description": "The typical latencies of the service plan, per technology.",
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/typicalDownloadSpeed"
+			}
+		}
+	},
+	"required": ["frn", "providerName", "planPrefix", "planID", "planName", "monthlyPrice"]
+}

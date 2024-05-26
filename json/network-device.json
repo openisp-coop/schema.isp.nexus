@@ -1,0 +1,71 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"id": "https://schema.isp.nexus/network-device",
+	"title": "NetworkDevice",
+	"description": "A network device is a piece of physical hardware that is connected to a network. This schema describes the properties of a network device.",
+	"definitions": {
+		"macAddress": {
+			"title": "MAC Address",
+			"type": "string",
+			"description": "A MAC address, i.e. a hardware address, is a unique identifier assigned to network interfaces for communications on the physical network segment. MAC addresses are formatted as  48 bits, represented as a string of 12 hexadecimal digits.",
+			"minLength": 12,
+			"maxLength": 12,
+			"pattern": "^[0-9a-f]{12}$"
+		},
+		"manufacturer": {
+			"title": "Device Manufacturer",
+			"description": "The manufacturer of a networking device",
+			"type": "string",
+			"enum": [
+				"ACTIONTEC",
+				"APPLE",
+				"ARRIS",
+				"ASUS",
+				"CISCO",
+				"D-LINK",
+				"HITRON",
+				"HUAWEI",
+				"LINKSYS",
+				"MIKROTIK",
+				"MOTOROLA",
+				"NETGEAR",
+				"OTHER",
+				"SAGEMCOM",
+				"SAMSUNG",
+				"TECHNICOLOR",
+				"TENDA",
+				"TP-LINK",
+				"UBIQUITI",
+				"XIAOMI",
+				"ZOOM",
+				"ZYXEL"
+			]
+		}
+	},
+	"type": "object",
+	"properties": {
+		"macAddress": {
+			"$ref": "#/definitions/macAddress"
+		},
+		"manufacturer": {
+			"$ref": "#/definitions/manufacturer"
+		},
+		"serialNumber": {
+			"type": "string",
+			"description": "The serial number of the device."
+		},
+		"model": {
+			"type": "string",
+			"description": "The model of the device."
+		},
+		"firmwareVersion": {
+			"type": "string",
+			"description": "The firmware version of the device."
+		},
+		"providerSubscriptionURN": {
+			"type": "string",
+			"description": "A URN to a specific broadband subscription. This is used to identify the FCC entity and subscription the device is associated with.",
+			"examples": ["urn:fcc:{fccEntityId}:subscription:{subscriptionId}"]
+		}
+	}
+}

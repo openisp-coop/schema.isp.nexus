@@ -1,0 +1,17 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"id": "https://schema.isp.nexus/broadband-subscriber",
+	"title": "Broadband Subscriber",
+	"description": "A specific broadband subscriber in an ISP's network. Note that this isn't necessarily a single person, but rather a specific node tied to a specific account.",
+	"type": "object",
+	"properties": {
+		"pointOfContact": {
+			"$ref": "https://schema.isp.nexus/point-of-contact",
+			"description": "The primary point of contact for this subscriber, such as an individual or business."
+		},
+		"serviceLocation": {
+			"$ref": "https://schema.isp.nexus/broadband-servicable-location",
+			"description": "The physical location where the subscriber's service is provided."
+		}
+	}
+}

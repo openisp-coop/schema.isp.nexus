@@ -1,0 +1,30 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"id": "https://schema.isp.nexus/broadband-servicable-location",
+	"title": "Broadband Servicable Location",
+	"description": "A physical location served by a broadband provider.",
+	"definitions": {
+		"fabricID": {
+			"title": "Fabric ID",
+			"type": "integer",
+			"description": "A unique identifier for the location served. Each Location ID is a 10-digit number starting with one billion.",
+			"minimum": 1000000000
+		}
+	},
+	"type": "object",
+	"properties": {
+		"locationID": {
+			"$ref": "#/definitions/fabricID"
+		},
+		"unitCount": {
+			"title": "Unit Count",
+			"type": "integer",
+			"description": "The number of units at the location, such as apartments or offices."
+		},
+		"deliveryAddress": {
+			"$ref": "https://schema.isp.nexus/usps-delivery-address",
+			"description": "The address where broadband service is available."
+		}
+	},
+	"required": ["locationID"]
+}

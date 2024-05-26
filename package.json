@@ -1,0 +1,26 @@
+{
+	"name": "schema.isp.nexus",
+	"version": "1.0.0",
+	"description": "Public schemas used by internet service providers.",
+	"license": "AGPL-3.0",
+	"contributors": [
+		{
+			"name": "Teffen Ellis",
+			"email": "teffen@openisp.coop"
+		}
+	],
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		"./*": "./*"
+	},
+	"devDependencies": {
+		"fast-glob": "^3.3.2"
+	},
+	"engines": {
+		"node": ">=20.11"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
